@@ -1,4 +1,16 @@
-(load "~/projects/learning/lisp/CL_GITSC/keyboard_excersizes/ch7/chap7-database.lisp")
+;;; blocks_world.lisp
+;;;
+;;; author: elias garcia
+;;; version: 20.7.17
+;;; license: WTFPL
+;;;
+;;; commentary:
+;;; blocks_world.lisp is my solution set for Touretzky's CH7 keyboard exercise for
+;;; functional programming
+;;;
+;;; code:
+
+(load "~/projects/learning/cl_gitsc_solutions/ch7/chap7-database.lisp")
 
 (defun MATCH-ELEMENT (elem-1 elem-2)
    "checks if two symbols are equal OR if one is a ? mark, returning true and nil otherwise"

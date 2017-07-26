@@ -1,3 +1,15 @@
+;;; craps.lisp
+;;;
+;;; author: elias garcia
+;;; version: 15.7.17
+;;; license: WTFPL
+;;;
+;;; commentary:
+;;; craps.lisp is my solution set for Touretzky's CH5 keyboard exercise for Variables
+;;; and Side Effects
+;;;
+;;; code:
+
 (defun THROW-DIE ()
    "simulates a 6-sided dice by returning a random # from 1 to 6"
    (+ (random 6) 1))
@@ -33,8 +45,7 @@
              (equal roll-sum 2)
              (equal roll-sum 3)
              (equal roll-sum 12))
-         t))
-   )
+         t)))
 
 (defun SAY-THROW (roll)
    "returns symbols SNAKE-EYES or BOXCARS if sum of roll is 2 or 12, returns
@@ -43,31 +54,26 @@
       (cond
          ((equal roll-sum 2) 'SNAKE-EYES)
          ((equal roll-sum 12) 'BOXCARS)
-         (t roll-sum)))
-   )
+         (t roll-sum))))
 
 (defun CRAPS ()
    "plays a game of craps, rolling two die and telling you whether you have
    instantly won or loss or your running point otherwise"
-   (let* (
-            (roll-1 (throw-die))
+   (let* ((roll-1 (throw-die))
             (roll-2 (throw-die))
             (roll-pair (list roll-1 roll-2))
             (roll-sum (+ roll-1 roll-2)))
       (cond
          ((instant-win-p roll-pair) (list 'throw roll-1 'and roll-2 '-- roll-sum 'you 'win ))
          ((instant-loss-p roll-pair) (list 'throw roll-1 'and roll-2 '-- (say-throw roll-pair) '-- 'you 'lose))
-         (t (list 'throw roll-1 'and roll-2 '-- 'your 'point 'is roll-sum))))
-   )
+         (t (list 'throw roll-1 'and roll-2 '-- 'your 'point 'is roll-sum)))))
 
 (defun TRY-FOR-POINT (point)
-   (let* (
-           (lose 7)
+   (let* ((lose 7)
            (roll-1 (throw-die))
            (roll-2 (throw-die))
            (roll-sum (+ roll-1 roll-2)))
       (cond
          ((equal roll-sum lose) (list 'throw roll-1 'and roll-2 '-- roll-sum '-- 'you 'lose))
          ((equal roll-sum point) (list 'throw roll-1 'and roll-2 '-- roll-sum '-- 'you 'win))
-         (t (list 'throw roll-1 'and roll-2 '-- 'throw 'again))))
-   )
+         (t (list 'throw roll-1 'and roll-2 '-- 'throw 'again)))))
