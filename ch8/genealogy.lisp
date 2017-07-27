@@ -68,4 +68,8 @@
 ;; Create MAPUNION applicative operator that takes a fn and a list, applies the fn to each elem in
 ;; the list, then applies union to the results of the previous operation
 
-(defun MAPUNION (fn ls))
+(defun MAPUNION (fn ls)
+   (reduce #'union
+      (funcall #'(lambda (elem)
+                    (mapcar fn elem))
+         ls)))
