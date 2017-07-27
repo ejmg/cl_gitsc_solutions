@@ -62,14 +62,53 @@
       ((null (mother person))
          (children (father person)))
       (t (set-difference (union (children (father person))
-                            (children (father person))) (list person)))))
+                            (children (father person)))
+            (list person)))))
 
 ;; problem C) description:
 ;; Create MAPUNION applicative operator that takes a fn and a list, applies the fn to each elem in
 ;; the list, then applies union to the results of the previous operation
 
 (defun MAPUNION (fn ls)
+   "takes a function and a list, applies function to each elem in list and then union on results"
    (reduce #'union
       (funcall #'(lambda (elem)
                     (mapcar fn elem))
          ls)))
+
+;; problem D) description:
+;; write function GRANDPARENTS that uses MAPUNION to return the grandparents of a person
+
+(defun GRANDPARENTS (person)
+   "returns the grandparents for a given person from family dbs"
+   (mapunion #'parents (parents person)))
+
+;; problem E) description:
+;; write function COUSINS that uses MAPUNION to return the cousins of a person
+
+(defun COUSINS (person)
+   "returns the cousins for a given person from family dbs"
+   (mapunion #'children
+      (mapunion #'siblings
+         (parents person))))
+
+;; problem F) description:
+;; write a 2 input recursive DESCENDED-FROM function that takes two person and returns t if the
+;; first input  is a descendant of the second.
+
+(defun DESCENDED-FROM (descendant descendee)
+   "takes two persons and determines whether the first is a descendant of the second, returning t"
+   (cond ((or (null descendant)
+             (null descendee))
+            nil)
+      ((or (equal (father descendant) descendee)
+          (equal (mother descendant) descendee))
+         t)
+      (t (or (descended-from (father descendant) descendee)
+            (descended-from (mother descendant) descendee)))))
+
+;; problem G) description:
+;; write recursive function ANCESTORS that returns a person's set of ancestors
+
+(defun ANCESTORS (person)
+   )
