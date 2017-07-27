@@ -111,4 +111,16 @@
 ;; write recursive function ANCESTORS that returns a person's set of ancestors
 
 (defun ANCESTORS (person)
-   )
+   "returns the ancestors for the given person from the family dbs"
+   (cond ((or (null person)
+             (null (parents person)))
+            nil)
+      ((null (grandparents person))
+         (parents person))
+      (t (union (parents person)
+            (mapunion #'ancestors (parents person))))))
+
+;; problem H) description:
+;; write a 2 input recursive function GENERATION-GAP that returns the number of generations
+;; separating a person and one of their ancestors.
+
