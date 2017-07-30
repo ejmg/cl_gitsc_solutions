@@ -5,7 +5,10 @@
 ;;; license: WTFPL
 ;;;
 ;;; commentary:
-;;; genealogy.lisp is my solution set for Touretzky's CH8 keyboard exercise for recursion
+;;; genealogy.lisp is my solution set for Touretzky's CH8 keyboard exercise for recursion.
+;;;
+;;; Where I feel it appropriate, I include the author's solutions (aka, when my solution turned out
+;;; to be incredibly hacky or just bad).
 ;;;
 ;;; code:
 
@@ -22,15 +25,11 @@
 
 (defun FATHER (person)
    "returns the father of a given person from the family dbs"
-   (if (null person)
-      nil
-      (second (assoc person family))))
+   (second (assoc person family)))
 
 (defun MOTHER (person)
    "returns the mother of a given person from the family dbs"
-   (if (null person)
-      nil
-      (third (assoc person family))))
+   (third (assoc person family)))
 
 (defun PARENTS (person)
    "returns the parents of a given person from the family dbs"
@@ -65,6 +64,13 @@
                             (children (father person)))
             (list person)))))
 
+;; textbook solution because mine clearly was not as good in comparison
+
+(defun SIBLINGS-SOLN (person)
+   (set-difference (union (children (father person)
+                             (children (mother person)))
+                      (list person))))
+
 ;; problem C) description:
 ;; Create MAPUNION applicative operator that takes a fn and a list, applies the fn to each elem in
 ;; the list, then applies union to the results of the previous operation
@@ -75,6 +81,11 @@
       (funcall #'(lambda (elem)
                     (mapcar fn elem))
          ls)))
+
+
+;; textbook solution: wowzers do i suck at lisp
+(defun MAPUNION-SOLN (fn ls)
+   (and ls (reduce #'union (mapcar fn ls))))
 
 ;; problem D) description:
 ;; write function GRANDPARENTS that uses MAPUNION to return the grandparents of a person
@@ -101,8 +112,7 @@
    (cond ((or (null descendant)
              (null descendee))
             nil)
-      ((or (equal (father descendant) descendee)
-          (equal (mother descendant) descendee))
+      ((member descendee (parents descendant))
          t)
       (t (or (descended-from (father descendant) descendee)
             (descended-from (mother descendant) descendee)))))
@@ -136,3 +146,15 @@
                   (reduce #'+ (cons '1 (generation-gap (mother descendant) descendee))))
             ((descended-from (father descendant) descendee)
                (reduce #'+ (cons '1 (generation-gap (father descendant) descendee)))))))))
+
+
+;; textbook solution for problem H) for comparison against my horribly hacky code
+
+(defun GENERATION-GAP-SOLN (descendant descendee)
+   (gen-gap-helper descendant descendee 0))
+
+(defun GEN-GAP-HELPER (descendant descendee n)
+   (cond ((null descendant) nil)
+      ((equal descendant descendee) n)
+      (t (or (gen-gap-helper (father descendant) descendee (1+ n))
+            (gen-gap-helper (mother descendant) descendee (1+ n))))))
