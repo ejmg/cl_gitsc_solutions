@@ -124,3 +124,34 @@
 ;; write a 2 input recursive function GENERATION-GAP that returns the number of generations
 ;; separating a person and one of their ancestors.
 
+;; (defun GENERATION-GAP (descendant descendee)
+;;    (cond ((or (null (descended-from descendant descendee))
+;;              (null (or descendant descendee)))
+;;             nil)
+;;       ((or (equal (mother descendant) descendee)
+;;           (equal (father descendant) descendee))
+;;          descendant)
+;;       (t (length (cond ((descended-from (mother descendant) descendee)
+;;                           (generation-gap (mother descendant) descendee))
+;;                     ((descended-from (father descendant) descendee)
+;;                        (generation-gap (father descendant) descendee)))))))
+
+;;TODO
+(defun GENERATION-GAP-TEST (descendant descendee)
+   (cond ((or (null (descended-from descendant descendee))
+             (null (or descendant descendee)))
+            nil)
+      ((or (equal (mother descendant) descendee)
+          (equal (father descendant) descendee))
+         1)
+      (t (cond ((descended-from (mother descendant) descendee)
+                  (mapcar #'list (generation-gap-test (mother descendant) descendee)))
+            ((descended-from (father descendant) descendee)
+               (mapcar #'list (generation-gap-test (father descendant) descendee)))))))
+
+
+
+;; helpers
+
+;; (defun child-of (child parent)
+;;    (if (member parent (parents child)) t))
