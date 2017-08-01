@@ -1,14 +1,12 @@
-;;; genealogy.lisp
+;;; 8_60.lisp
 ;;;
 ;;; author: elias garcia
 ;;; version: 25.7.17
 ;;; license: WTFPL
 ;;;
 ;;; commentary:
-;;; genealogy.lisp is my solution set for Touretzky's CH8 keyboard exercise for recursion.
+;;; 8_60.lisp is my solution set for Touretzky's CH8 keyboard exercise for recursion.
 ;;;
-;;; Where I feel it appropriate, I include the author's solutions (aka, when my solution turned out
-;;; to be incredibly hacky or just bad).
 ;;;
 ;;; code:
 
@@ -83,7 +81,7 @@
             ls)))
 
 
-;; textbook solution: wowzers do i suck at lisp
+;; textbook solution
 (defun MAPUNION-SOLN (fn ls)
     (and ls (reduce #'union (mapcar fn ls))))
 
@@ -134,6 +132,9 @@
 ;; write a 2 input recursive function GENERATION-GAP that returns the number of generations
 ;; separating a person and one of their ancestors.
 
+;; i'm going to be real: I forgot to read the rest of the chapter before finishing this assignment
+;; and this solution 100% shows that.
+
 (defun GENERATION-GAP (descendant descendee)
     "returns the number of generations between two relatives from the family dbs"
     (cond ((or (null (descended-from descendant descendee))
@@ -148,7 +149,7 @@
                          (reduce #'+ (cons '1 (generation-gap (father descendant) descendee)))))))))
 
 
-;; textbook solution for problem H) for comparison against my horribly hacky code
+;; textbook solution for problem H)
 
 (defun GENERATION-GAP-SOLN (descendant descendee)
     (gen-gap-helper descendant descendee 0))

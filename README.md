@@ -12,8 +12,8 @@ Because I could, that's why.
 
 I only solved the exercises that interested me (the moderately harder problems in the book) so I only started around chapter 5.
 
-For each chapter, I grouped solutions by subsection and wrote up an individual file for each problem. As an example, a solution for exercise 2.2 found in
-subsection 2.4 would be in the subfolder `2_4` as the file `2_2.lisp`.
+For each chapter, I wrote up an individual file for a given solution for a specific exercise. As an example, a solution for exercise 8.6 found in
+subsection 8.8 would be in the subfolder `ch8` as the file `8_6.lisp`.
 
 Finally, at the end of each chapter starting around 5 there are large-ish `Keyboard Exercise`s. These are saved under the unique subfolder `keyboard_exercise` for
 each chapter I did the keyboard exercise.
