@@ -11,3 +11,8 @@
 ;;;
 ;;; code:
 
+(defun my-member (elem ls)
+  "checks if given elem is member of list, returning sublist starting at elem if found"
+  (cond ((null ls) nil)
+        ((equal elem (car ls)) ls)
+        (t (my-member elem (cdr ls)))))
